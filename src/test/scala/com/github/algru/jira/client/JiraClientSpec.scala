@@ -76,6 +76,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
             AbsenceType.RemoteWork,
             LocalDateTime.of(2020, 3, 1, 12, 0, 0),
             LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+            LocalDateTime.of(2020, 3, 1, 22, 59, 0),
             "test",
             "Тест Тест Тест"
           )
@@ -103,6 +104,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               AbsenceType.RemoteWork,
               LocalDateTime.of(2020, 3, 1, 12, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+              LocalDateTime.of(2020, 3, 1, 22, 59, 0),
               "test",
               "Тест Тест Тест"
             ),
@@ -113,6 +115,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               AbsenceType.RemoteWork,
               LocalDateTime.of(2020, 3, 1, 12, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+              LocalDateTime.of(2020, 3, 1, 22, 59, 0),
               "test",
               "Тест Тест Тест"
             )
@@ -130,6 +133,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               AbsenceType.RemoteWork,
               LocalDateTime.of(2020, 3, 1, 12, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+              LocalDateTime.of(2020, 3, 1, 22, 59, 0),
               "test",
               "Тест Тест Тест"
             ),
@@ -140,6 +144,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               AbsenceType.RemoteWork,
               LocalDateTime.of(2020, 3, 1, 12, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+              LocalDateTime.of(2020, 3, 1, 22, 59, 0),
               "test",
               "Тест Тест Тест"
             )
@@ -157,6 +162,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               AbsenceType.RemoteWork,
               LocalDateTime.of(2020, 3, 1, 12, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+              LocalDateTime.of(2020, 3, 1, 22, 59, 0),
               "test",
               "Тест Тест Тест"
             )

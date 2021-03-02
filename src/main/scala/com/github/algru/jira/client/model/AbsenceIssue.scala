@@ -8,5 +8,6 @@ case class AbsenceIssue(key: String,
                         absenceType: AbsenceType.Value,
                         start: LocalDateTime,
                         end: LocalDateTime,
+                        lastUpdate: LocalDateTime,
                         userName: String,
                         displayName: String)

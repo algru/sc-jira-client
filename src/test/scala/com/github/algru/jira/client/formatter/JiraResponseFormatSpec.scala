@@ -38,6 +38,7 @@ class JiraResponseFormatSpec extends AnyWordSpec with Matchers {
             AbsenceType.RemoteWork,
             LocalDateTime.of(2020, 3, 1, 9, 0, 0),
             LocalDateTime.of(2020, 3, 1, 18, 0, 0),
+            LocalDateTime.of(2020, 3, 1, 22, 59, 0),
             "user",
             "User"
           )
@@ -61,7 +62,8 @@ class JiraResponseFormatSpec extends AnyWordSpec with Matchers {
         |                "customfield_11802": "2020-03-01T18:00:00.000+0300",
         |                "status": {
         |                    "id": "10800"
-        |                }
+        |                },
+        |                "updated": "2020-03-01T22:59:00.000+0300"
         |            }
         |   }],
         | "maxResults":10,

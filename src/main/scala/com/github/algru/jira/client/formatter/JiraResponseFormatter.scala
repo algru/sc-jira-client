@@ -1,6 +1,5 @@
 package com.github.algru.jira.client.formatter
 
-import com.github.algru.common.exception.util.ExceptionThrower
 import com.github.algru.common.exception.util.ExceptionThrower.throwAndLog
 import com.github.algru.common.logging.Logging
 import com.github.algru.jira.client.exception.{JiraApiException, JiraWrongResponseException}
@@ -42,9 +41,11 @@ object JiraResponseFormatter extends DefaultJsonProtocol with Logging {
         val start = ZonedDateTime.parse(startStr, utcDateTimeFormatter).withZoneSameInstant(TimeZone.getDefault.toZoneId).toLocalDateTime
         val endStr = json.extract[String](Symbol("fields") / Symbol("customfield_11802"))
         val end = ZonedDateTime.parse(endStr, utcDateTimeFormatter).withZoneSameInstant(TimeZone.getDefault.toZoneId).toLocalDateTime
+        val updatedStr = json.extract[String](Symbol("fields") / Symbol("updated"))
+        val updated = ZonedDateTime.parse(updatedStr, utcDateTimeFormatter).withZoneSameInstant(TimeZone.getDefault.toZoneId).toLocalDateTime
         val userName = json.extract[String](Symbol("fields") / Symbol("reporter") / Symbol("name"))
         val displayName = json.extract[String](Symbol("fields") / Symbol("reporter") / Symbol("displayName"))
-        AbsenceIssue(key, self, status, absenceType, start, end, userName, displayName)
+        AbsenceIssue(key, self, status, absenceType, start, end, updated, userName, displayName)
       }
       JiraResponse(startAt, maxResults, total, absences)
     } catch {

@@ -4,11 +4,13 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object JqlRequests {
+  private val jiraDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
   def makeGetAbsenceRequest(startDate: LocalDateTime, endDate: LocalDateTime, startAt: Int, maxResults: Int): String = {
     val jql =
       "project = ABSENCE " +
-        s"  AND created >= ${startDate.format(DateTimeFormatter.ISO_DATE)} " +
-        s"  AND created <= ${endDate.format(DateTimeFormatter.ISO_DATE)} " +
+        s"  AND updated >= '${startDate.format(jiraDateTimeFormat)}' " +
+        s"  AND updated <= '${endDate.format(jiraDateTimeFormat)}' " +
         "ORDER BY updated DESC"
 
     val requestBody =
@@ -19,6 +21,7 @@ object JqlRequests {
          |    "maxResults": $maxResults,
          |
          |    "fields": [
+         |        "updated",
          |        "customfield_11801",
          |        "customfield_11802",
          |        "status",

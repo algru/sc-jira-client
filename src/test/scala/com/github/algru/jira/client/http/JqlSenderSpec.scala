@@ -109,6 +109,7 @@ class JqlSenderSpec extends AnyWordSpec with Matchers with ScalaFutures with Moc
             AbsenceType.RemoteWork,
             LocalDateTime.of(2020, 3, 1, 12, 0, 0),
             LocalDateTime.of(2020, 3, 1, 21, 59, 0),
+            LocalDateTime.of(2020, 3, 1, 22, 59, 0),
             "test",
             "Тест Тест Тест"
           )
@@ -122,6 +123,7 @@ class JqlSenderSpec extends AnyWordSpec with Matchers with ScalaFutures with Moc
         |    "maxResults": 1,
         |
         |    "fields": [
+        |        "updated",
         |        "customfield_11801",
         |        "customfield_11802",
         |        "status",
@@ -182,7 +184,8 @@ class JqlSenderSpec extends AnyWordSpec with Matchers with ScalaFutures with Moc
         |                        "colorName": "yellow",
         |                        "name": "В работе"
         |                    }
-        |                }
+        |                },
+        |                "updated": "2020-03-01T22:59:00.000+0300"
         |            }
         |        }
         |    ]

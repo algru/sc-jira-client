@@ -22,6 +22,7 @@ trait JqlSender extends Logging { this: HttpClient =>
                         jiraBasicCredentials: HttpCredentials,
                         requestBody: String,
                         responseFormatter: String => JiraResponse[T]): Future[JiraResponse[T]] = {
+    log.debug(s"JiraRequest: $requestBody")
     val batchResponseFuture = for {
       requestEntity <- Marshal(requestBody).to[RequestEntity]
       response <- sendHttpRequest(

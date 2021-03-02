@@ -19,6 +19,16 @@ class JiraClient(url: String, username: String, password: String)
     override implicit val executionContext: ExecutionContext = actorSystem.dispatcher
   }
 
+  /**
+   * Retrieve all JIRA issues by project ABSENCE in target period between startDate and endDate
+   *
+   * JIRA API returns issues with maxResults restriction. By default method try request issues with maxResults=1000
+   * but JIRA can response with another restriction value in this case next call correct maxResults in request body
+   *
+   * @param startDate
+   * @param endDate
+   * @return Future of absences
+   */
   def getAbsences(startDate: LocalDateTime, endDate: LocalDateTime): Future[Seq[AbsenceIssue]] = {
     getAbsencesRecursive(startDate, endDate, 0, 1000)
   }

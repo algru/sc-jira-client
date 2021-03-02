@@ -18,6 +18,10 @@ object Dependencies {
     "net.virtual-void" %%  "json-lenses" % "0.6.2"
   )
 
+  lazy val antiDuplicationUtilities = Seq(
+    "algru" %% "anti-duplication-utilities" % "0.1"
+  )
+
   lazy val scalaConfig = Seq(
     "com.typesafe" % "config" % "1.4.0"
 

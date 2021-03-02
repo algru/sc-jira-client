@@ -5,6 +5,7 @@ lazy val IntegrationTest = config("integration") extend Test
 lazy val root = (project in file("."))
   .configs(IntegrationTest)
   .settings(
+    organization := "algru",
     name := "sc-jira-client",
     version := "0.1",
     scalaVersion := "2.13.5",
@@ -24,6 +25,7 @@ lazy val root = (project in file("."))
       akkaHttpSpray,
       akkaStream,
       sprayJson,
+      antiDuplicationUtilities,
       scalaConfig,
       logging,
       scalaTest

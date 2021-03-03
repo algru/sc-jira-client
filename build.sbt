@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
   .settings(
     organization := "algru",
     name := "sc-jira-client",
-    version := "0.1",
+    version := "0.2",
     scalaVersion := "2.13.5",
 
     githubOwner := "algru",

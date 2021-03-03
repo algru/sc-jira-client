@@ -1,7 +1,6 @@
 package com.github.algru.jira.client
 
 import akka.stream.StreamTcpException
-import akka.stream.scaladsl.TcpIdleTimeoutException
 import com.github.algru.common.config.Configuration
 import com.github.algru.jira.client.exception.JiraAuthenticationException
 import com.github.algru.jira.client.model.AbsenceIssue

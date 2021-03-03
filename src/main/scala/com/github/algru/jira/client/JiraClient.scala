@@ -25,12 +25,17 @@ class JiraClient(url: String, username: String, password: String)
    * JIRA API returns issues with maxResults restriction. By default method try request issues with maxResults=1000
    * but JIRA can response with another restriction value in this case next call correct maxResults in request body
    *
-   * @param startDate
-   * @param endDate
+   * Minimal time unit what JIRA queries works with is MINUTES (don't ask me why). So we need additional filter
+   * 'lastUpdate >= startDate && lastUpdate <= endDate' after retrieving all issues. Funny but lastUpdate has
+   * at least seconds
+   *
+   * @param startDate issue update date >= that date
+   * @param endDate issue update date <= that date
    * @return Future of absences
    */
   def getAbsences(startDate: LocalDateTime, endDate: LocalDateTime): Future[Seq[AbsenceIssue]] = {
     getAbsencesRecursive(startDate, endDate, 0, 1000)
+      .map(absences => absences.filter(a => a.lastUpdate.isAfter(startDate) && a.lastUpdate.isBefore(endDate)))
   }
 
   private def getAbsencesRecursive(startDate: LocalDateTime, endDate: LocalDateTime, startAt: Int, maxResults: Int): Future[Seq[AbsenceIssue]] = {

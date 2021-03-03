@@ -21,8 +21,8 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
   val testUrl = "testUrl"
   val testUsername = "test"
   val testPassword = "test"
-  val testStartDate = LocalDateTime.now
-  val testEndDate = LocalDateTime.now
+  val testStartDate = LocalDateTime.of(2020, 3, 1, 12, 0, 0)
+  val testEndDate = LocalDateTime.of(2020, 3, 1, 23, 59, 0)
 
   val jiraClient = new JiraClient(testUrl, testUsername, testPassword) with MockAbsenceService
 
@@ -57,6 +57,34 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
 
         whenReady(jiraClient.getAbsences(testStartDate, testEndDate)) { absences =>
           absences should be (sequenceOfAbsencesResponses.flatMap(_.issues))
+        }
+      }
+      "has absences with lastUpdate < startDate" should {
+        "filter them" in {
+          inSequence {
+            jiraClient.mock.expects(*, *, 0, 1000).returning(Future.successful(sequenceOfAbsencesResponses(0))).noMoreThanOnce()
+            jiraClient.mock.expects(*, *, 2, 2).returning(Future.successful(sequenceOfAbsencesResponses(1))).noMoreThanOnce()
+            jiraClient.mock.expects(*, *, 4, 2).returning(Future.successful(sequenceOfAbsencesResponses(2))).noMoreThanOnce()
+          }
+
+          val newTestStartDate = LocalDateTime.of(2020, 3, 1, 23, 0, 0)
+          whenReady(jiraClient.getAbsences(newTestStartDate, testEndDate)) { absences =>
+            absences should have size 1
+          }
+        }
+      }
+      "has absences with lastUpdate > endDate" should {
+        "filter them" in {
+          inSequence {
+            jiraClient.mock.expects(*, *, 0, 1000).returning(Future.successful(sequenceOfAbsencesResponses(0))).noMoreThanOnce()
+            jiraClient.mock.expects(*, *, 2, 2).returning(Future.successful(sequenceOfAbsencesResponses(1))).noMoreThanOnce()
+            jiraClient.mock.expects(*, *, 4, 2).returning(Future.successful(sequenceOfAbsencesResponses(2))).noMoreThanOnce()
+          }
+
+          val newTestEndDate = LocalDateTime.of(2020, 3, 1, 23, 0, 0)
+          whenReady(jiraClient.getAbsences(testStartDate, newTestEndDate)) { absences =>
+            absences should have size 4
+          }
         }
       }
     }
@@ -102,7 +130,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               "https://support.softclub.by/rest/api/2/issue/639515",
               AbsenceStatus.On_Agreement,
               AbsenceType.RemoteWork,
-              LocalDateTime.of(2020, 3, 1, 12, 0, 0),
+              LocalDateTime.of(2020, 3, 1, 13, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
               LocalDateTime.of(2020, 3, 1, 22, 59, 0),
               "test",
@@ -133,7 +161,7 @@ class JiraClientSpec extends AnyWordSpec with Matchers with ScalaFutures with Mo
               AbsenceType.RemoteWork,
               LocalDateTime.of(2020, 3, 1, 12, 0, 0),
               LocalDateTime.of(2020, 3, 1, 21, 59, 0),
-              LocalDateTime.of(2020, 3, 1, 22, 59, 0),
+              LocalDateTime.of(2020, 3, 1, 23, 58, 0),
               "test",
               "Тест Тест Тест"
             ),

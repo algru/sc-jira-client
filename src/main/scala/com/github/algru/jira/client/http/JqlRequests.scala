@@ -8,9 +8,10 @@ object JqlRequests {
 
   def makeGetAbsenceRequest(startDate: LocalDateTime, endDate: LocalDateTime, startAt: Int, maxResults: Int): String = {
     val jql =
+      // endDate increased by one minute to prevent data loss because of lack of seconds
       "project = ABSENCE " +
         s"  AND updated >= '${startDate.format(jiraDateTimeFormat)}' " +
-        s"  AND updated <= '${endDate.format(jiraDateTimeFormat)}' " +
+        s"  AND updated <= '${endDate.plusMinutes(1).format(jiraDateTimeFormat)}' " +
         "ORDER BY updated DESC"
 
     val requestBody =

@@ -12,7 +12,6 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import spray.json.JsonParser.ParsingException
 
 import java.time.LocalDateTime
 import scala.concurrent.{ExecutionContext, Future}
